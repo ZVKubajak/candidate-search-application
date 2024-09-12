@@ -2,41 +2,52 @@ import { useState, useEffect } from "react";
 import { searchGithub, searchGithubUser } from "../api/API";
 
 import Candidate from "../interfaces/Candidate.interface.tsx";
+import CandidateCard from "../components/CandidateCard.tsx";
 
 import "./CandidateSearch.css";
 
 const CandidateSearch = () => {
 
-  const [gitHubUser, setGitHubUser] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [savedUsers, setSavedUsers] = useState([]);
 
   useEffect(() => {
     searchGithub().then((results) => {
+      setUsers(results);
       console.log(results);
-      setGitHubUser(results)
     });
   }, []);
+
+  const nextUser = () => {
+    setIndex((prevIndex) => (prevIndex + 1) % users.length);
+  };
+
+  const saveUser = () => {
+    const currentUser = users[index];
+    setSavedUsers([...savedUsers, currentUser]);
+
+    nextUser();
+  };
+
+  useEffect(() => {
+    console.log(savedUsers);
+  }, [savedUsers]);
+
+  const currentUser = users[index] || {};
 
   return (
     <div>
       <h1>Candidate Search</h1>
 
       <div className="candidate-card">
-        <div className="candidate-info">
-          <div className="candidate-image-container">
-            <img
-              className="candidate-image"
-              src="https://placehold.co/150x150"
-            ></img>
-          </div>
-          {/* <p className="candidate-name">{name}</p>
-          <p className="candidate-location">{location}</p>
-          <p className="candidate-email">
-            Email: <a href={`mailto:${email}`}>{email}</a>
-          </p>
-          <p className="candidate-company">Company: {company}</p>
-          <p className="candidate-bio">Bio: {bio}</p> */}
-        </div>
+        {users.length > 0 && (
+          <CandidateCard candidate={currentUser} />
+        )}
       </div>
+
+      <button onClick={nextUser}>Next</button>
+      <button onClick={saveUser}>Save</button>
     </div>
   );
 };
