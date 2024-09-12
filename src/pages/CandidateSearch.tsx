@@ -5,8 +5,16 @@ import Candidate from "../interfaces/Candidate.interface.tsx";
 
 import "./CandidateSearch.css";
 
-const CandidateSearch = (props) => {
-  const { image, name, location, email, company, bio } = props;
+const CandidateSearch = () => {
+
+  const [gitHubUser, setGitHubUser] = useState([]);
+
+  useEffect(() => {
+    searchGithub().then((results) => {
+      console.log(results);
+      setGitHubUser(results)
+    });
+  }, []);
 
   return (
     <div>
@@ -20,13 +28,13 @@ const CandidateSearch = (props) => {
               src="https://placehold.co/150x150"
             ></img>
           </div>
-          <p className="candidate-name">{name}</p>
+          {/* <p className="candidate-name">{name}</p>
           <p className="candidate-location">{location}</p>
           <p className="candidate-email">
             Email: <a href={`mailto:${email}`}>{email}</a>
           </p>
           <p className="candidate-company">Company: {company}</p>
-          <p className="candidate-bio">Bio: {bio}</p>
+          <p className="candidate-bio">Bio: {bio}</p> */}
         </div>
       </div>
     </div>
