@@ -1,15 +1,22 @@
+import { useState } from "react";
+
 import { Candidate } from "../interfaces/Candidate.interface.tsx";
 
 import "./SavedCandidates.css";
 
 const SavedCandidates = () => {
-  let users: Candidate[] = [];
+  const [users, setUsers] = useState<Candidate[]>(() => {
+    const savedUsers = localStorage.getItem("savedUsers");
+    console.log(savedUsers);
 
-  const savedUsers = localStorage.getItem("savedUsers");
-  if (savedUsers) {
-    users = JSON.parse(savedUsers);
-    console.log(users);
-  }
+    return savedUsers ? JSON.parse(savedUsers) : [];
+  });
+
+  const rejectUser = (index: number) => {
+    const updatedUsers = users.filter((_, i) => i !== index);
+    localStorage.setItem("savedUsers", JSON.stringify(updatedUsers));
+    setUsers(updatedUsers);
+  };
 
   const rows: JSX.Element[] = [];
   users.forEach((user, index) => {
@@ -30,7 +37,9 @@ const SavedCandidates = () => {
         <td>{user.company}</td>
         <td>{user.bio}</td>
         <td>
-          <button id="reject-user">Reject</button>
+          <button id="reject-user" onClick={() => rejectUser(index)}>
+            Reject
+          </button>
         </td>
       </tr>
     );
