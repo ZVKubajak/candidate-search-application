@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { searchGithub, searchGithubUser } from "../api/API";
 
-import Candidate from "../interfaces/Candidate.interface.tsx";
 import CandidateCard from "../components/CandidateCard.tsx";
 
 import "./CandidateSearch.css";
@@ -42,7 +41,7 @@ const CandidateSearch = () => {
 
       <div className="candidate-card">
         {users.length > 0 && (
-          <CandidateCard candidate={currentUser} />
+          <CandidateCard user={currentUser} />
         )}
       </div>
 
