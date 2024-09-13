@@ -40,6 +40,11 @@ const CandidateSearch = () => {
     console.log("User Details:", users);
   }, [users]);
 
+  useEffect(() => {
+    const storedUsers = localStorage.getItem('savedUsers');
+    if (storedUsers) { setSavedUsers(JSON.parse(storedUsers)); }
+  }, []);
+
   const currentUser = users[index];
   // console.log(currentUser);
 
@@ -48,7 +53,10 @@ const CandidateSearch = () => {
   };
 
   const saveUser = () => {
-    setSavedUsers([...savedUsers, currentUser]);
+    const updatedSavedUsers = [...savedUsers, currentUser];
+    setSavedUsers(updatedSavedUsers);
+
+    localStorage.setItem('savedUsers', JSON.stringify(updatedSavedUsers));
 
     nextUser();
   };
