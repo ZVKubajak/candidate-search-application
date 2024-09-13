@@ -5,11 +5,6 @@ interface CandidateCardProps {
 }
 
 const CandidateCard: React.FC<CandidateCardProps> = ({ user }) => {
-  if (!user) {
-    return <p>No candidate data available</p>;
-  }
-
-  // We need to use the searchGithubUser method to get more information on a specific user.
 
   return (
     <section>

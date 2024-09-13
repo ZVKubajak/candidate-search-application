@@ -20,7 +20,11 @@ const CandidateSearch = () => {
         setCandidateList(candidates);
 
         const getUserDetails = await Promise.all(
-          candidates.map(async (user: Candidate) => searchGithubUser(user.login))
+          candidates.map(async (user: Candidate) => {
+            const userDetails = await searchGithubUser(user.login);
+            // console.log(userDetails);
+            return userDetails;
+          })
         );
 
         setUsers(getUserDetails);
@@ -33,32 +37,23 @@ const CandidateSearch = () => {
     getUserData();
   }, []);
 
-  /*
   useEffect(() => {
-    searchGithub().then((results) => {
-      setCandidateList(results);
-      console.log(results);
-    });
-  }, []);
-  */
+    console.log("Candidate List:", candidateList);
+    console.log("User Details:", users);
+  }, [users]);
+
+  const currentUser = users[index];
+  // console.log(currentUser);
 
   const nextUser = () => {
     setIndex((prevIndex) => (prevIndex + 1) % users.length);
   };
 
   const saveUser = () => {
-    const currentUser = users[index];
     setSavedUsers([...savedUsers, currentUser]);
 
     nextUser();
   };
-
-  useEffect(() => {
-    console.log(savedUsers);
-  }, [savedUsers]);
-
-  const currentUser = users[index] || {};
-  // console.log(currentUser);
 
   return (
     <div>
