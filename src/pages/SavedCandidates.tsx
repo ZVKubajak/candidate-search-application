@@ -7,7 +7,6 @@ import "./SavedCandidates.css";
 const SavedCandidates = () => {
   const [users, setUsers] = useState<Candidate[]>(() => {
     const savedUsers = localStorage.getItem("savedUsers");
-    console.log(savedUsers);
 
     return savedUsers ? JSON.parse(savedUsers) : [];
   });
