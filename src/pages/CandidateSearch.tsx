@@ -34,6 +34,7 @@ const CandidateSearch = () => {
   }, [savedUsers]);
 
   const currentUser = users[index] || {};
+  // console.log(currentUser);
 
   return (
     <div>
