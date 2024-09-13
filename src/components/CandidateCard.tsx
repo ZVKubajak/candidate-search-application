@@ -1,4 +1,4 @@
-import { Candidate } from "../interfaces/Candidate.interface";
+import { Candidate } from "../interfaces/Candidate.interface.tsx";
 
 interface CandidateCardProps {
   user: Candidate;

@@ -1,22 +1,46 @@
 import { useState, useEffect } from "react";
-import { searchGithub, searchGithubUser } from "../api/API";
+import { searchGithub, searchGithubUser } from "../api/API.tsx";
 
+import { Candidate } from "../interfaces/Candidate.interface.tsx";
 import CandidateCard from "../components/CandidateCard.tsx";
 
 import "./CandidateSearch.css";
 
 const CandidateSearch = () => {
 
-  const [users, setUsers] = useState([]);
-  const [index, setIndex] = useState(0);
-  const [savedUsers, setSavedUsers] = useState([]);
+  const [index, setIndex] = useState<number>(0);
+  const [candidateList, setCandidateList] = useState<Candidate[]>([]);
+  const [savedUsers, setSavedUsers] = useState<Candidate[]>([]);
+  const [users, setUsers] = useState<Candidate[]>([]);
 
   useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const candidates: Candidate[] = await searchGithub();
+        setCandidateList(candidates);
+
+        const getUserDetails = await Promise.all(
+          candidates.map(async (user: Candidate) => searchGithubUser(user.login))
+        );
+
+        setUsers(getUserDetails);
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getUserData();
+  }, []);
+
+  /*
+  useEffect(() => {
     searchGithub().then((results) => {
-      setUsers(results);
+      setCandidateList(results);
       console.log(results);
     });
   }, []);
+  */
 
   const nextUser = () => {
     setIndex((prevIndex) => (prevIndex + 1) % users.length);
