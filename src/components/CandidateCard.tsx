@@ -13,6 +13,7 @@ const CandidateCard: React.FC<CandidateCardProps> = ({ user }) => {
           <img
             className="candidate-image"
             src={`${user.avatar_url}`}
+            alt="No image found."
           ></img>
         </div>
         <p className="candidate-name">{user.login}</p>

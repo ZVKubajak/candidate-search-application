@@ -7,7 +7,6 @@ import CandidateCard from "../components/CandidateCard.tsx";
 import "./CandidateSearch.css";
 
 const CandidateSearch = () => {
-
   const [index, setIndex] = useState<number>(0);
   const [candidateList, setCandidateList] = useState<Candidate[]>([]);
   const [savedUsers, setSavedUsers] = useState<Candidate[]>([]);
@@ -28,7 +27,6 @@ const CandidateSearch = () => {
         );
 
         setUsers(getUserDetails);
-
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -60,13 +58,13 @@ const CandidateSearch = () => {
       <h1>Candidate Search</h1>
 
       <div className="candidate-card">
-        {users.length > 0 && (
-          <CandidateCard user={currentUser} />
-        )}
+        {users.length > 0 && <CandidateCard user={currentUser} />}
       </div>
 
-      <button onClick={nextUser}>Next</button>
-      <button onClick={saveUser}>Save</button>
+      <div className="button-container">
+        <button id="next-button" onClick={nextUser}>Next</button>
+        <button id="save-button" onClick={saveUser}>Save</button>
+      </div>
     </div>
   );
 };

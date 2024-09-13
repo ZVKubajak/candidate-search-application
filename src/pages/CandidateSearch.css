@@ -17,3 +17,19 @@
   border-radius: 50%;
   margin-top: 10px;
 }
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 20px;
+}
+
+#next-button {
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+#save-button {
+  border: 1px solid white;
+  border-radius: 5px;
+}
