@@ -1,11 +1,11 @@
 import { Candidate } from "../interfaces/Candidate.interface.tsx";
 
-import "./SavedCandidates.css"
+import "./SavedCandidates.css";
 
 const SavedCandidates = () => {
   let users: Candidate[] = [];
 
-  const savedUsers = localStorage.getItem('savedUsers');
+  const savedUsers = localStorage.getItem("savedUsers");
   if (savedUsers) {
     users = JSON.parse(savedUsers);
     console.log(users);
@@ -16,15 +16,21 @@ const SavedCandidates = () => {
     rows.push(
       <tr className="user-row" key={index}>
         <td>
-          <img className="user-image" src={`${user.avatar_url}`} alt="No image found." />
+          <img
+            className="user-image"
+            src={`${user.avatar_url}`}
+            alt="No image found."
+          />
         </td>
         <td>{user.login}</td>
         <td>{user.location}</td>
-        <td>{user.email}</td>
+        <td>
+          <a href={`mailto:${user.email}`}>{user.email}</a>
+        </td>
         <td>{user.company}</td>
         <td>{user.bio}</td>
         <td>
-          <button>Reject</button>
+          <button id="reject-user">Reject</button>
         </td>
       </tr>
     );
@@ -47,9 +53,7 @@ const SavedCandidates = () => {
               <th>Reject</th>
             </tr>
           </thead>
-          <tbody>
-            {rows}
-          </tbody>
+          <tbody>{rows}</tbody>
         </table>
       </main>
     </>

@@ -5,7 +5,6 @@ interface CandidateCardProps {
 }
 
 const CandidateCard: React.FC<CandidateCardProps> = ({ user }) => {
-
   return (
     <section>
       <div className="candidate-info">
