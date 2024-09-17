@@ -22,6 +22,9 @@ const CandidateSearch = () => {
           candidates.map(async (user: Candidate) => {
             const userDetails = await searchGithubUser(user.login);
             // console.log(userDetails);
+
+            
+
             return userDetails;
           })
         );
